@@ -158,7 +158,9 @@ export async function workspaceBootstrap(): Promise<WorkspaceList> {
   return invoke<WorkspaceList>("workspace_bootstrap");
 }
 
-export async function workspaceSetActive(workspaceId: string): Promise<WorkspaceList> {
+export async function workspaceSetActive(
+  workspaceId: string,
+): Promise<WorkspaceList> {
   return invoke<WorkspaceList>("workspace_set_active", { workspaceId });
 }
 
@@ -246,7 +248,9 @@ export async function workspaceUpdateDisplayName(input: {
   });
 }
 
-export async function workspaceForget(workspaceId: string): Promise<WorkspaceList> {
+export async function workspaceForget(
+  workspaceId: string,
+): Promise<WorkspaceList> {
   return invoke<WorkspaceList>("workspace_forget", { workspaceId });
 }
 
@@ -379,7 +383,9 @@ export async function orchestratorWorkspaceActivate(input: {
   });
 }
 
-export async function orchestratorInstanceDispose(workspacePath: string): Promise<boolean> {
+export async function orchestratorInstanceDispose(
+  workspacePath: string,
+): Promise<boolean> {
   return invoke<boolean>("orchestrator_instance_dispose", { workspacePath });
 }
 
@@ -458,7 +464,9 @@ export type OpenworkDockerCleanupResult = {
 };
 
 export async function sandboxCleanupOpenworkContainers(): Promise<OpenworkDockerCleanupResult> {
-  return invoke<OpenworkDockerCleanupResult>("sandbox_cleanup_openwork_containers");
+  return invoke<OpenworkDockerCleanupResult>(
+    "sandbox_cleanup_openwork_containers",
+  );
 }
 
 export async function openworkServerInfo(): Promise<OpenworkServerInfo> {
@@ -575,7 +583,10 @@ export async function engineInstall(): Promise<ExecResult> {
   return invoke<ExecResult>("engine_install");
 }
 
-export async function opkgInstall(projectDir: string, pkg: string): Promise<ExecResult> {
+export async function opkgInstall(
+  projectDir: string,
+  pkg: string,
+): Promise<ExecResult> {
   return invoke<ExecResult>("opkg_install", { projectDir, package: pkg });
 }
 
@@ -617,19 +628,31 @@ export type LocalSkillContent = {
   content: string;
 };
 
-export async function listLocalSkills(projectDir: string): Promise<LocalSkillCard[]> {
+export async function listLocalSkills(
+  projectDir: string,
+): Promise<LocalSkillCard[]> {
   return invoke<LocalSkillCard[]>("list_local_skills", { projectDir });
 }
 
-export async function readLocalSkill(projectDir: string, name: string): Promise<LocalSkillContent> {
+export async function readLocalSkill(
+  projectDir: string,
+  name: string,
+): Promise<LocalSkillContent> {
   return invoke<LocalSkillContent>("read_local_skill", { projectDir, name });
 }
 
-export async function writeLocalSkill(projectDir: string, name: string, content: string): Promise<ExecResult> {
+export async function writeLocalSkill(
+  projectDir: string,
+  name: string,
+  content: string,
+): Promise<ExecResult> {
   return invoke<ExecResult>("write_local_skill", { projectDir, name, content });
 }
 
-export async function uninstallSkill(projectDir: string, name: string): Promise<ExecResult> {
+export async function uninstallSkill(
+  projectDir: string,
+  name: string,
+): Promise<ExecResult> {
   return invoke<ExecResult>("uninstall_skill", { projectDir, name });
 }
 
@@ -654,7 +677,10 @@ export async function readOpencodeConfig(
   scope: "project" | "global",
   projectDir: string,
 ): Promise<OpencodeConfigFile> {
-  return invoke<OpencodeConfigFile>("read_opencode_config", { scope, projectDir });
+  return invoke<OpencodeConfigFile>("read_opencode_config", {
+    scope,
+    projectDir,
+  });
 }
 
 export async function writeOpencodeConfig(
@@ -662,10 +688,16 @@ export async function writeOpencodeConfig(
   projectDir: string,
   content: string,
 ): Promise<ExecResult> {
-  return invoke<ExecResult>("write_opencode_config", { scope, projectDir, content });
+  return invoke<ExecResult>("write_opencode_config", {
+    scope,
+    projectDir,
+    content,
+  });
 }
 
-export async function resetOpenworkState(mode: "onboarding" | "all"): Promise<void> {
+export async function resetOpenworkState(
+  mode: "onboarding" | "all",
+): Promise<void> {
   return invoke<void>("reset_openwork_state", { mode });
 }
 
@@ -736,14 +768,18 @@ export async function readObsidianMirrorFile(
   });
 }
 
-export async function schedulerListJobs(scopeRoot?: string): Promise<ScheduledJob[]> {
+export async function schedulerListJobs(
+  scopeRoot?: string,
+): Promise<ScheduledJob[]> {
   return invoke<ScheduledJob[]>("scheduler_list_jobs", { scopeRoot });
 }
 
-export async function schedulerDeleteJob(name: string, scopeRoot?: string): Promise<ScheduledJob> {
+export async function schedulerDeleteJob(
+  name: string,
+  scopeRoot?: string,
+): Promise<ScheduledJob> {
   return invoke<ScheduledJob>("scheduler_delete_job", { name, scopeRoot });
 }
-
 
 export async function opencodeDbMigrate(input: {
   projectDir: string;
@@ -762,6 +798,16 @@ export async function opencodeDbMigrate(input: {
   });
 }
 
+export type OpenCodeRouterStatus = {
+  slack: { items?: unknown[] | null };
+  telegram: { items?: unknown[] | null };
+  notion: { items?: unknown[] | null };
+};
+
+export async function getOpenCodeRouterStatus(): Promise<OpenCodeRouterStatus> {
+  return invoke<OpenCodeRouterStatus>("get_opencode_router_status");
+}
+
 export async function opencodeMcpAuth(
   projectDir: string,
   serverName: string,
@@ -778,4 +824,3 @@ export async function opencodeMcpAuth(
     serverName: safeServerName,
   });
 }
-

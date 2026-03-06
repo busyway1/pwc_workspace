@@ -249,17 +249,19 @@ cd packages/mcp-servers/doc-processor && pnpm build
 
 ## 테스트
 
+전체 **227개 테스트** (서버 206개 + 오케스트레이터 21개), 0 실패.
+
 ### 단위 테스트
 
 ```bash
-# 서버 패키지 테스트 (50개 테스트)
-cd packages/server && bun test
+# 서버 패키지 테스트 (206개 테스트, 82% 라인 커버리지)
+cd packages/server && bun test --coverage
 
-# 오케스트레이터 프록시 단위 테스트 (19개 테스트)
-cd packages/orchestrator && bun test src/llm-fallback-proxy.test.ts
+# 오케스트레이터 프록시 단위 테스트 (19개 테스트, 100% 커버리지)
+cd packages/orchestrator && bun test src/llm-fallback-proxy.test.ts --coverage
 ```
 
-### 통합 테스트 (실제 API 호출)
+### 통합 테스트 (실제 OpenAI API 호출)
 
 ```bash
 # .env에 LLM_ENV=local 및 OPENAI_API_KEY 설정 후
@@ -267,17 +269,51 @@ export $(grep -v '^#' .env | xargs)
 cd packages/orchestrator && bun test src/llm-integration.test.ts
 ```
 
-### 테스트 범위
+### 커버리지 현황
 
-| 테스트 파일                                     | 범위                                                                                    |
-| ----------------------------------------------- | --------------------------------------------------------------------------------------- |
-| `llm-fallback-proxy.test.ts`                    | resolveProxyConfig, rewriteModelInBody, startFallbackProxy (폴백 로직, 인증, 오류 처리) |
-| `llm-integration.test.ts`                       | 실제 OpenAI API를 통한 chat completion 및 모델 목록 조회                                |
-| `validators.test.ts`                            | 명령어/MCP/스킬 이름 유효성 검증                                                        |
-| `tokens.test.ts`                                | 토큰 생성, 스코프 확인, 폐기                                                            |
-| `file-sessions.test.ts`                         | 파일 세션 CRUD, 이벤트 기록/페이지네이션                                                |
-| `utils.test.ts`                                 | 해시, ID 생성, 리스트 파싱, 디렉토리 유틸                                               |
-| `server.normalizeWorkspaceRelativePath.test.ts` | 경로 정규화                                                                             |
+| 모듈                    | 라인 커버리지 | 비고                       |
+| ----------------------- | ------------- | -------------------------- |
+| `llm-fallback-proxy.ts` | 100%          | 프록시/폴백 로직 완전 커버 |
+| `approvals.ts`          | 100%          | 승인 워크플로우            |
+| `audit.ts`              | 100%          | 감사 로그 기록/조회        |
+| `errors.ts`             | 100%          | ApiError + formatError     |
+| `events.ts`             | 100%          | ReloadEventStore           |
+| `file-sessions.ts`      | 100%          | 파일 세션 CRUD             |
+| `frontmatter.ts`        | 100%          | YAML 프론트매터 파싱/생성  |
+| `jsonc.ts`              | 100%          | JSONC 읽기/쓰기/업데이트   |
+| `workspace-files.ts`    | 100%          | 설정 경로 해석             |
+| `workspaces.ts`         | 100%          | 워크스페이스 ID/빌드       |
+| `instructions.ts`       | 98%           | 인스트럭션 CRUD            |
+| `validators.ts`         | 98%           | 이름/설정 유효성 검증      |
+| `plugins.ts`            | 97%           | 플러그인 관리              |
+| `commands.ts`           | 96%           | 명령어 CRUD                |
+| `mcp.ts`                | 93%           | MCP 설정 관리              |
+| `tokens.ts`             | 84%           | 토큰 인증                  |
+| `skills.ts`             | 80%           | 스킬 CRUD                  |
+| `scheduler.ts`          | 67%           | 예약 작업 관리             |
+
+### 테스트 파일 목록
+
+| 테스트 파일                  | 대상 모듈                                                     | 테스트 수 |
+| ---------------------------- | ------------------------------------------------------------- | --------- |
+| `llm-fallback-proxy.test.ts` | resolveProxyConfig, rewriteModelInBody, startFallbackProxy    | 19        |
+| `llm-integration.test.ts`    | 실제 OpenAI API 통합 (gated)                                  | 2         |
+| `approvals.test.ts`          | ApprovalService (auto/manual/timeout)                         | 7         |
+| `audit.test.ts`              | recordAudit, readLastAudit, readAuditEntries                  | 9         |
+| `commands.test.ts`           | listCommands, upsertCommand, deleteCommand                    | 9         |
+| `errors.test.ts`             | ApiError, formatError                                         | 8         |
+| `events.test.ts`             | ReloadEventStore                                              | 다수      |
+| `file-sessions.test.ts`      | FileSessionManager                                            | 다수      |
+| `frontmatter.test.ts`        | parseFrontmatter, buildFrontmatter                            | 다수      |
+| `instructions.test.ts`       | getInstructions, saveInstructions, ensureInstructionsInConfig | 8         |
+| `jsonc.test.ts`              | readJsoncFile, updateJsoncTopLevel                            | 다수      |
+| `mcp.test.ts`                | listMcp, addMcp, removeMcp                                    | 11        |
+| `plugins.test.ts`            | normalizePluginSpec, listPlugins, addPlugin, removePlugin     | 12        |
+| `scheduler.test.ts`          | listScheduledJobs, resolveScheduledJob                        | 7         |
+| `skills.test.ts`             | listSkills, upsertSkill, deleteSkill                          | 10        |
+| `validators.test.ts`         | 모든 검증 함수                                                | 다수      |
+| `workspace-files.test.ts`    | opencodeConfigPath 등 경로 함수                               | 8         |
+| `workspaces.test.ts`         | workspaceIdForPath, buildWorkspaceInfos                       | 8         |
 
 ---
 
