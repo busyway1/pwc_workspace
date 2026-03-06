@@ -1,0 +1,17 @@
+{
+  "schema_version": "1.0",
+  "name": "pwc-finance-legal",
+  "display_name": "PwC Finance & Legal",
+  "description": "Samil PwC 전용 재무/세무/감사 분석 플러그인. 엑셀 재무제표, 조세 판례, 감사 워크플로우를 위한 도메인 지식과 문서 처리 도구를 제공합니다.",
+  "version": "0.1.0",
+  "author": "PwC Workspace Team",
+  "skills": ["excel-analysis", "tax-case-review", "financial-audit"],
+  "commands": [
+    "parse-document",
+    "analyze-excel",
+    "review-tax-case",
+    "synthesize"
+  ],
+  "mcp_servers": ["doc-processor"],
+  "tags": ["finance", "tax", "audit", "legal", "korean"]
+}

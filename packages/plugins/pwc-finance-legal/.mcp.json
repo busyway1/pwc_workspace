@@ -1,0 +1,6 @@
+{
+  "doc-processor": {
+    "type": "local",
+    "command": ["node", "../../mcp-servers/doc-processor/dist/index.js"]
+  }
+}

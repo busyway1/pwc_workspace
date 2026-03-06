@@ -1,0 +1,17 @@
+{
+  "$schema": "https://opencode.ai/config.json",
+  "model": "openai/bedrock.anthropic.claude-sonnet-4",
+  "mcp": {
+    "control-chrome": {
+      "type": "local",
+      "command": [
+        "chrome-devtools-mcp"
+      ]
+    },
+    "doc-processor": {
+      "type": "local",
+      "command": ["node", "./packages/mcp-servers/doc-processor/dist/index.js"]
+    }
+  },
+  "plugin": ["file://./packages/plugins/pwc-finance-legal"]
+}

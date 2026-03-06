@@ -1,0 +1,377 @@
+{
+  "version": "2.0",
+  "lastUpdated": "2026-03-06T04:17:13.275Z",
+  "activeFeatures": [
+    "mcp-servers",
+    "server",
+    "packages",
+    "orchestrator"
+  ],
+  "primaryFeature": "mcp-servers",
+  "features": {
+    "mcp-servers": {
+      "phase": "do",
+      "phaseNumber": 3,
+      "matchRate": null,
+      "iterationCount": 0,
+      "requirements": [],
+      "documents": {},
+      "timestamps": {
+        "started": "2026-03-06T02:38:00.042Z",
+        "lastUpdated": "2026-03-06T02:41:57.621Z"
+      },
+      "lastFile": "/Users/jaewookim/Desktop/Project/pwc-workspace-agent/packages/mcp-servers/doc-processor/src/index.ts"
+    },
+    "server": {
+      "phase": "do",
+      "phaseNumber": 3,
+      "matchRate": null,
+      "iterationCount": 0,
+      "requirements": [],
+      "documents": {},
+      "timestamps": {
+        "started": "2026-03-06T03:11:33.290Z",
+        "lastUpdated": "2026-03-06T03:25:08.130Z"
+      },
+      "lastFile": "/Users/jaewookim/Desktop/Project/pwc-workspace-agent/packages/server/src/server.ts"
+    },
+    "packages": {
+      "phase": "do",
+      "phaseNumber": 3,
+      "matchRate": null,
+      "iterationCount": 0,
+      "requirements": [],
+      "documents": {},
+      "timestamps": {
+        "started": "2026-03-06T03:11:59.679Z",
+        "lastUpdated": "2026-03-06T03:31:21.536Z"
+      },
+      "lastFile": "/Users/jaewookim/Desktop/Project/pwc-workspace-agent/packages/app/src/app/pages/commands.tsx"
+    },
+    "orchestrator": {
+      "phase": "do",
+      "phaseNumber": 3,
+      "matchRate": null,
+      "iterationCount": 0,
+      "requirements": [],
+      "documents": {},
+      "timestamps": {
+        "started": "2026-03-06T04:11:39.997Z",
+        "lastUpdated": "2026-03-06T04:17:13.275Z"
+      },
+      "lastFile": "/Users/jaewookim/Desktop/Project/pwc-workspace-agent/packages/orchestrator/src/llm-fallback-proxy.test.ts"
+    }
+  },
+  "pipeline": {
+    "currentPhase": 1,
+    "level": "Dynamic",
+    "phaseHistory": []
+  },
+  "session": {
+    "startedAt": "2026-03-06T02:09:38.217Z",
+    "onboardingCompleted": false,
+    "lastActivity": "2026-03-06T04:17:13.275Z"
+  },
+  "history": [
+    {
+      "timestamp": "2026-03-06T02:38:00.042Z",
+      "feature": "mcp-servers",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-06T02:38:25.703Z",
+      "feature": "mcp-servers",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-06T02:38:32.502Z",
+      "feature": "mcp-servers",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-06T02:38:34.336Z",
+      "feature": "mcp-servers",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-06T02:38:35.402Z",
+      "feature": "mcp-servers",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-06T02:38:56.800Z",
+      "feature": "mcp-servers",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-06T02:38:58.637Z",
+      "feature": "mcp-servers",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-06T02:40:00.622Z",
+      "feature": "mcp-servers",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-06T02:40:22.511Z",
+      "feature": "mcp-servers",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-06T02:40:52.445Z",
+      "feature": "mcp-servers",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-06T02:41:57.621Z",
+      "feature": "mcp-servers",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-06T03:11:33.290Z",
+      "feature": "server",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-06T03:11:59.679Z",
+      "feature": "packages",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-06T03:12:50.767Z",
+      "feature": "packages",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-06T03:13:06.457Z",
+      "feature": "packages",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-06T03:13:27.109Z",
+      "feature": "packages",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-06T03:13:49.060Z",
+      "feature": "packages",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-06T03:14:27.097Z",
+      "feature": "packages",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-06T03:15:03.412Z",
+      "feature": "server",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-06T03:15:35.315Z",
+      "feature": "server",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-06T03:16:02.686Z",
+      "feature": "server",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-06T03:16:15.282Z",
+      "feature": "server",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-06T03:16:30.443Z",
+      "feature": "server",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-06T03:16:47.542Z",
+      "feature": "packages",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-06T03:17:01.281Z",
+      "feature": "packages",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-06T03:17:26.661Z",
+      "feature": "packages",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-06T03:17:48.746Z",
+      "feature": "packages",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-06T03:18:20.930Z",
+      "feature": "packages",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-06T03:19:04.470Z",
+      "feature": "packages",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-06T03:19:24.005Z",
+      "feature": "packages",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-06T03:19:48.831Z",
+      "feature": "packages",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-06T03:20:54.836Z",
+      "feature": "packages",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-06T03:25:08.130Z",
+      "feature": "server",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-06T03:28:46.325Z",
+      "feature": "packages",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-06T03:29:26.793Z",
+      "feature": "packages",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-06T03:30:06.176Z",
+      "feature": "packages",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-06T03:30:35.922Z",
+      "feature": "packages",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-06T03:30:59.459Z",
+      "feature": "packages",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-06T03:31:21.536Z",
+      "feature": "packages",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-06T04:11:39.997Z",
+      "feature": "orchestrator",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-06T04:11:47.696Z",
+      "feature": "orchestrator",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-06T04:12:20.509Z",
+      "feature": "orchestrator",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-06T04:13:29.096Z",
+      "feature": "orchestrator",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-06T04:13:41.754Z",
+      "feature": "orchestrator",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-06T04:13:55.542Z",
+      "feature": "orchestrator",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-06T04:14:39.986Z",
+      "feature": "orchestrator",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-06T04:15:56.499Z",
+      "feature": "orchestrator",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-06T04:16:29.424Z",
+      "feature": "orchestrator",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-06T04:16:55.090Z",
+      "feature": "orchestrator",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-06T04:17:13.275Z",
+      "feature": "orchestrator",
+      "phase": "do",
+      "action": "updated"
+    }
+  ]
+}
