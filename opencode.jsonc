@@ -13,5 +13,5 @@
       "command": ["node", "./packages/mcp-servers/doc-processor/dist/index.js"]
     }
   },
-  "plugin": ["file://./packages/plugins/pwc-finance-legal"]
+  "plugin": []
 }

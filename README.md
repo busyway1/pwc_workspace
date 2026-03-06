@@ -162,14 +162,22 @@ cp .env.example .env
 # .env 파일에서 LLM_ENV 및 API 키 설정
 
 # 3. 백엔드 시작 (오케스트레이터 + OpenCode + 서버)
-pnpm dev
+# --workspace 플래그로 프로젝트 루트를 명시 (bunfig.toml preload 충돌 방지)
+pnpm dev -- --workspace $(pwd)
 
 # 4. UI 개발 서버 시작 (별도 터미널)
 pnpm dev:ui
 
 # 5. 브라우저 접속
 # http://localhost:3000
+# UI 설정에서 OpenWork 서버 URL과 토큰을 입력 (콘솔 출력 참조)
 ```
+
+> **Windows 참고:** PowerShell에서는 `$(pwd)` 대신 `$PWD` 또는 `(Get-Location).Path`를 사용하세요:
+>
+> ```powershell
+> pnpm dev -- --workspace (Get-Location).Path
+> ```
 
 ---
 
@@ -249,16 +257,22 @@ cd packages/mcp-servers/doc-processor && pnpm build
 
 ## 테스트
 
-전체 **227개 테스트** (서버 206개 + 오케스트레이터 21개), 0 실패.
+전체 **271개 테스트** (서버 206개 + 오케스트레이터 23개 + doc-processor 42개), 0 실패.
 
 ### 단위 테스트
 
 ```bash
-# 서버 패키지 테스트 (206개 테스트, 82% 라인 커버리지)
-cd packages/server && bun test --coverage
+# 서버 패키지 테스트 (206개 테스트)
+cd packages/server && bun test
 
-# 오케스트레이터 프록시 단위 테스트 (19개 테스트, 100% 커버리지)
-cd packages/orchestrator && bun test src/llm-fallback-proxy.test.ts --coverage
+# 오케스트레이터 프록시 단위 테스트 (19개 테스트)
+cd packages/orchestrator && bun test src/llm-fallback-proxy.test.ts
+
+# doc-processor MCP 서버 테스트 (42개 테스트)
+cd packages/mcp-servers/doc-processor && bun test
+
+# 전체 테스트 한번에 실행
+cd packages/server && bun test && cd ../orchestrator && bun test && cd ../mcp-servers/doc-processor && bun test
 ```
 
 ### 통합 테스트 (실제 OpenAI API 호출)
@@ -271,49 +285,64 @@ cd packages/orchestrator && bun test src/llm-integration.test.ts
 
 ### 커버리지 현황
 
-| 모듈                    | 라인 커버리지 | 비고                       |
-| ----------------------- | ------------- | -------------------------- |
-| `llm-fallback-proxy.ts` | 100%          | 프록시/폴백 로직 완전 커버 |
-| `approvals.ts`          | 100%          | 승인 워크플로우            |
-| `audit.ts`              | 100%          | 감사 로그 기록/조회        |
-| `errors.ts`             | 100%          | ApiError + formatError     |
-| `events.ts`             | 100%          | ReloadEventStore           |
-| `file-sessions.ts`      | 100%          | 파일 세션 CRUD             |
-| `frontmatter.ts`        | 100%          | YAML 프론트매터 파싱/생성  |
-| `jsonc.ts`              | 100%          | JSONC 읽기/쓰기/업데이트   |
-| `workspace-files.ts`    | 100%          | 설정 경로 해석             |
-| `workspaces.ts`         | 100%          | 워크스페이스 ID/빌드       |
-| `instructions.ts`       | 98%           | 인스트럭션 CRUD            |
-| `validators.ts`         | 98%           | 이름/설정 유효성 검증      |
-| `plugins.ts`            | 97%           | 플러그인 관리              |
-| `commands.ts`           | 96%           | 명령어 CRUD                |
-| `mcp.ts`                | 93%           | MCP 설정 관리              |
-| `tokens.ts`             | 84%           | 토큰 인증                  |
-| `skills.ts`             | 80%           | 스킬 CRUD                  |
-| `scheduler.ts`          | 67%           | 예약 작업 관리             |
+| 모듈                    | 라인 커버리지 | 비고                                 |
+| ----------------------- | ------------- | ------------------------------------ |
+| `llm-fallback-proxy.ts` | 100%          | 프록시/폴백 로직 완전 커버           |
+| `approvals.ts`          | 100%          | 승인 워크플로우                      |
+| `audit.ts`              | 100%          | 감사 로그 기록/조회                  |
+| `errors.ts`             | 100%          | ApiError + formatError               |
+| `events.ts`             | 100%          | ReloadEventStore                     |
+| `file-sessions.ts`      | 100%          | 파일 세션 CRUD                       |
+| `frontmatter.ts`        | 100%          | YAML 프론트매터 파싱/생성            |
+| `jsonc.ts`              | 100%          | JSONC 읽기/쓰기/업데이트             |
+| `workspace-files.ts`    | 100%          | 설정 경로 해석                       |
+| `workspaces.ts`         | 100%          | 워크스페이스 ID/빌드                 |
+| `instructions.ts`       | 98%           | 인스트럭션 CRUD                      |
+| `validators.ts`         | 98%           | 이름/설정 유효성 검증                |
+| `plugins.ts`            | 97%           | 플러그인 관리                        |
+| `commands.ts`           | 96%           | 명령어 CRUD                          |
+| `mcp.ts`                | 93%           | MCP 설정 관리                        |
+| `tokens.ts`             | 84%           | 토큰 인증                            |
+| `skills.ts`             | 80%           | 스킬 CRUD                            |
+| `scheduler.ts`          | 67%           | 예약 작업 관리 (macOS/Linux/Windows) |
 
 ### 테스트 파일 목록
 
-| 테스트 파일                  | 대상 모듈                                                     | 테스트 수 |
-| ---------------------------- | ------------------------------------------------------------- | --------- |
-| `llm-fallback-proxy.test.ts` | resolveProxyConfig, rewriteModelInBody, startFallbackProxy    | 19        |
-| `llm-integration.test.ts`    | 실제 OpenAI API 통합 (gated)                                  | 2         |
-| `approvals.test.ts`          | ApprovalService (auto/manual/timeout)                         | 7         |
-| `audit.test.ts`              | recordAudit, readLastAudit, readAuditEntries                  | 9         |
-| `commands.test.ts`           | listCommands, upsertCommand, deleteCommand                    | 9         |
-| `errors.test.ts`             | ApiError, formatError                                         | 8         |
-| `events.test.ts`             | ReloadEventStore                                              | 다수      |
-| `file-sessions.test.ts`      | FileSessionManager                                            | 다수      |
-| `frontmatter.test.ts`        | parseFrontmatter, buildFrontmatter                            | 다수      |
-| `instructions.test.ts`       | getInstructions, saveInstructions, ensureInstructionsInConfig | 8         |
-| `jsonc.test.ts`              | readJsoncFile, updateJsoncTopLevel                            | 다수      |
-| `mcp.test.ts`                | listMcp, addMcp, removeMcp                                    | 11        |
-| `plugins.test.ts`            | normalizePluginSpec, listPlugins, addPlugin, removePlugin     | 12        |
-| `scheduler.test.ts`          | listScheduledJobs, resolveScheduledJob                        | 7         |
-| `skills.test.ts`             | listSkills, upsertSkill, deleteSkill                          | 10        |
-| `validators.test.ts`         | 모든 검증 함수                                                | 다수      |
-| `workspace-files.test.ts`    | opencodeConfigPath 등 경로 함수                               | 8         |
-| `workspaces.test.ts`         | workspaceIdForPath, buildWorkspaceInfos                       | 8         |
+**오케스트레이터 (23개 테스트)**
+
+| 테스트 파일                  | 대상 모듈                                                  | 테스트 수 |
+| ---------------------------- | ---------------------------------------------------------- | --------- |
+| `llm-fallback-proxy.test.ts` | resolveProxyConfig, rewriteModelInBody, startFallbackProxy | 19        |
+| `llm-integration.test.ts`    | 실제 OpenAI API 통합 (gated, 4 skip)                       | 4         |
+
+**서버 (206개 테스트)**
+
+| 테스트 파일               | 대상 모듈                                                     | 테스트 수 |
+| ------------------------- | ------------------------------------------------------------- | --------- |
+| `approvals.test.ts`       | ApprovalService (auto/manual/timeout)                         | 7         |
+| `audit.test.ts`           | recordAudit, readLastAudit, readAuditEntries                  | 9         |
+| `commands.test.ts`        | listCommands, upsertCommand, deleteCommand                    | 9         |
+| `errors.test.ts`          | ApiError, formatError                                         | 8         |
+| `events.test.ts`          | ReloadEventStore                                              | 다수      |
+| `file-sessions.test.ts`   | FileSessionManager                                            | 다수      |
+| `frontmatter.test.ts`     | parseFrontmatter, buildFrontmatter                            | 다수      |
+| `instructions.test.ts`    | getInstructions, saveInstructions, ensureInstructionsInConfig | 8         |
+| `jsonc.test.ts`           | readJsoncFile, updateJsoncTopLevel                            | 다수      |
+| `mcp.test.ts`             | listMcp, addMcp, removeMcp                                    | 11        |
+| `plugins.test.ts`         | normalizePluginSpec, listPlugins, addPlugin, removePlugin     | 12        |
+| `scheduler.test.ts`       | listScheduledJobs, resolveScheduledJob                        | 7         |
+| `skills.test.ts`          | listSkills, upsertSkill, deleteSkill                          | 10        |
+| `validators.test.ts`      | 모든 검증 함수                                                | 다수      |
+| `workspace-files.test.ts` | opencodeConfigPath 등 경로 함수                               | 8         |
+| `workspaces.test.ts`      | workspaceIdForPath, buildWorkspaceInfos                       | 8         |
+
+**doc-processor MCP 서버 (42개 테스트)**
+
+| 테스트 파일             | 대상 모듈                                                     | 테스트 수 |
+| ----------------------- | ------------------------------------------------------------- | --------- |
+| `chunk-helpers.test.ts` | chunkText, flattenSections                                    | 12        |
+| `xlsx-helpers.test.ts`  | detectHeaders, toMarkdownTable, filterHidden, formatCellValue | 16        |
+| `parse-xlsx.test.ts`    | parseXlsx (실제 XLSX 파일 생성 후 E2E)                        | 10        |
 
 ---
 
@@ -423,9 +452,11 @@ docker-compose up
       "command": ["node", "./packages/mcp-servers/doc-processor/dist/index.js"],
     },
   },
-  "plugin": ["file://./packages/plugins/pwc-finance-legal"],
+  "plugin": [],
 }
 ```
+
+> **참고:** `pwc-finance-legal` 플러그인은 pnpm 워크스페이스를 통해 로드됩니다. `file://` 참조는 Bun 런타임의 경로 해석 문제로 사용하지 않습니다.
 
 ---
 
