@@ -78,7 +78,7 @@ describe("resolveProxyConfig", () => {
     expect(config!.baseUrl).toBe("https://api.openai.com");
     expect(config!.apiKey).toBe("sk-test");
     expect(config!.primaryModel).toBe("gpt-5.2");
-    expect(config!.fallbackModel).toBe("gpt-5.2-mini");
+    expect(config!.fallbackModel).toBe("gpt-5-mini");
   });
 
   test("uses custom models in local mode", () => {

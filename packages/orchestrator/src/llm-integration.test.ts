@@ -21,7 +21,7 @@ describe.if(canRunIntegration)("LLM Integration (real OpenAI API)", () => {
       baseUrl: "https://api.openai.com",
       apiKey: process.env.OPENAI_API_KEY!,
       primaryModel: "gpt-5.2",
-      fallbackModel: "gpt-5.2-mini",
+      fallbackModel: "gpt-5-mini",
       llmEnv: "local",
     };
     const proxy = await startFallbackProxy(config);

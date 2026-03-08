@@ -39,7 +39,7 @@ export function resolveProxyConfig(): FallbackProxyConfig | null {
       baseUrl: OPENAI_BASE_URL,
       apiKey,
       primaryModel: process.env.LOCAL_PRIMARY_MODEL ?? OPENAI_DEFAULT_MODEL,
-      fallbackModel: process.env.LOCAL_FALLBACK_MODEL ?? "gpt-5.2-mini",
+      fallbackModel: process.env.LOCAL_FALLBACK_MODEL ?? "gpt-5-mini",
       llmEnv: "local",
     };
   }

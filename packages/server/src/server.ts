@@ -67,6 +67,13 @@ import pkg from "../package.json" with { type: "json" };
 
 const SERVER_VERSION = pkg.version;
 
+function jsonResponse(data: unknown, status = 200): Response {
+  return new Response(JSON.stringify(data), {
+    status,
+    headers: { "content-type": "application/json" },
+  });
+}
+
 const FILE_SESSION_DEFAULT_TTL_MS = 15 * 60 * 1000;
 const FILE_SESSION_MIN_TTL_MS = 30 * 1000;
 const FILE_SESSION_MAX_TTL_MS = 24 * 60 * 60 * 1000;
